@@ -22,7 +22,7 @@ class Solution:
         i = 0
         counter = 0
         while i < len(s):
-            if s != len(s) - 1 and s[i] != s[i + 1]:
+            if s[i] != s[i + 1]:
                 counter += 1
 
             i += 2
