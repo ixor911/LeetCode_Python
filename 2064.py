@@ -20,7 +20,6 @@ Output: 7
 
 # =========== SOLUTION =========== #
 import math
-from decimal import Decimal
 
 class Solution:
     def find_best(self, n, best, quantities):
@@ -30,11 +29,10 @@ class Solution:
         for quantity in quantities:
             value = quantity / best
             sum += math.ceil(value)
-            if 0 < math.modf(value)[1]value % 1 < min:
+            if 0 < value % 1 < min:
                 min = value % 1
 
         if sum > n:
-            print(best * min)
             return self.find_best(n, math.ceil(best + best * min), quantities)
         else:
             return best
