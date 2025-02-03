@@ -22,50 +22,24 @@ from typing import List
 
 # =========== SOLUTION =========== #
 
-
 class Solution:
+    def find_longest(self, nums: list):
+        ans = 1
+        count = 1
+        for i in range(0, len(nums) - 1):
+            if nums[i] < nums[i + 1]:
+                count += 1
+            else:
+                ans = max(ans, count)
+                count = 1
+
+        return max(count, ans)
+
+
     def longestMonotonicSubarray(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return 1
-
-        pairs = [
-            1 if nums[i] < nums[i + 1] else -1 if nums[i] > nums[i + 1] else 0
-            for i in range(len(nums) - 1)
-        ]
-
-        print(pairs)
-
-        count = pos = 0
-        for i in range(0, len(pairs)):
-            if pairs[i] == 1:
-                count += 1
-            else:
-                pos = count if count > pos else pos
-                count = 0
-
-        pos = count if count > pos else pos
-
-        print(pos)
-
-        #=================================================
-
-        count = neg = 0
-        for i in range(0, len(pairs)):
-            if pairs[i] == -1:
-                count += 1
-            else:
-                neg = count if count > neg else neg
-                count = 0
-
-        neg = count if count > neg else neg
-
-        print(neg)
-
-        return max(pos, neg) + 1
-
-
+        return max(self.find_longest(nums), self.find_longest(nums[::-1]))
 
 # =========== TEST =========== #
 
 solution = Solution()
-print(solution.longestMonotonicSubarray([1,1,5]))
+print(solution.longestMonotonicSubarray([3,2,1]))
