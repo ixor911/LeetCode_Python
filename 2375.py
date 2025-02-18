@@ -15,35 +15,22 @@ Output: "4321"
 # =========== SOLUTION =========== #
 
 class Solution:
-    def find_variants(self, current: str, pattern: str):
-        if len(pattern) == 0:
-            return [current]
-
-        r = range(int(current[-1]) + 1, 10) if pattern[0] == 'I' else range(int(current[-1]) - 1, 0, -1)
-
-        possibles = [num for num in r if f"{num}" not in current]
-
-        variants = []
-        for pos in possibles:
-            for variant in self.find_variants(current + f"{pos}", pattern[1:]):
-                variants.append(variant)
-            # variants.append(self.find_variants([*current, pos], pattern[1:]))
-
-        return variants
-
-
-
-
-
     def smallestNumber(self, pattern: str) -> str:
-        for i in range(1, 10):
-            variants = self.find_variants(f"{i}", pattern)
-            if len(variants) != 0:
-                break
+        n = len(pattern)
+        ans = ""
 
-        return str(min([int(num) for num in variants]))
+        stack = []
+        for i in range(n + 1):
+            stack.append(str(i + 1))
+
+            if i == n or pattern[i] == "I":
+                while stack:
+                    ans += stack.pop()
+
+        return ans
+
 
 # =========== TEST =========== #
 
 solution = Solution()
-print(solution.smallestNumber("DDD"))
+print(solution.smallestNumber("IIIDIDDD"))
